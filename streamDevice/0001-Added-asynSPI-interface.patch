@@ -1,0 +1,76 @@
+--- stream/2-7-7/src/AsynDriverInterface.cc	2017-01-30 20:01:47.000000000 +0900
++++ stream/2-7-7_SPI/src/AsynDriverInterface.cc	2017-12-27 18:13:48.138267036 +0900
+@@ -40,6 +40,7 @@
+ #include <asynInt32.h>
+ #include <asynUInt32Digital.h>
+ #include <asynGpibDriver.h>
++#include <asynSPI.h>
+ 
+ /* How things are implemented:
+ 
+@@ -151,6 +152,7 @@
+     void* pvtUInt32;
+     void* intrPvtUInt32;
+     asynGpib* pasynGpib;
++    asynSPI* pasynSPI;
+     void* pvtGpib;
+     IoAction ioAction;
+     double lockTimeout;
+@@ -259,6 +261,7 @@
+     pasynUInt32 = NULL;
+     intrPvtUInt32 = NULL;
+     pasynGpib = NULL;
++    pasynSPI = NULL;
+     eventMask = 0;
+     receivedEvent = 0;
+     peeksize = 1;
+@@ -487,6 +490,15 @@
+         // (read only one byte first).
+         peeksize = inputBuffer.capacity();
+     }
++
++    // is it a I2C interface ?
++    pasynInterface = pasynManager->findInterface( pasynUser, asynSpiType, true );
++    if( pasynInterface ) {
++      pasynSPI = static_cast<asynSPI*>(pasynInterface->pinterface);
++      // SPI does not support peeking
++      peeksize = inputBuffer.capacity();
++    }
++
+     return true;
+ }
+ 
+@@ -666,7 +678,7 @@
+     size_t written = 0;
+ 
+     pasynUser->timeout = 0;
+-    if (!pasynGpib)
++    if (!pasynGpib && !pasynSPI)
+     // discard any early input, but forward it to potential async records
+     // thus do not use pasynOctet->flush()
+     // unfortunately we cannot do this with GPIB because addressing a device as talker
+
+--- stream/2-7-7/streamApp/Makefile	2017-06-14 23:32:51.000000000 +0900
++++ stream/2-7-7_SPI/streamApp/Makefile	2017-12-27 18:13:48.018272480 +0900
+@@ -48,6 +48,10 @@
+ PROD_LIBS_DEFAULT += streamSynApps
+ endif
+ 
++ifdef DRVASYNSPI
++PROD_LIBS += drvAsynSPI
++endif
++
+ streamApp_DBD += stream.dbd
+ 
+ ifdef PCRE
+
+--- stream/2-7-7/configure/RELEASE	2017-12-27 17:04:07.688534687 +0900
++++ stream/2-7-7_SPI/configure/RELEASE	2017-12-28 09:13:39.890844096 +0900
+@@ -29,6 +29,7 @@
+ # If using the sequencer, point SNCSEQ at its top directory:
+ SNCSEQ=$(EPICS_BASE)/../modules/soft/seq/2.2.4
+ ASYN=$(EPICS_BASE)/../modules/soft/asyn/4-31
++DRVASYNSPI=/opt/epics/R315.5/modules/soft/spi
+ 
+ 
+ # EPICS_BASE should appear last so earlier modules can override stuff:
