@@ -8,7 +8,7 @@
 
 class drvAsynSPI : public asynPortDriver {
  public:
-  drvAsynSPI( const char *portName, const char *ttyName, int spi_mode, int max_speed, int autoConnect );
+  drvAsynSPI( const char *portName, const char *ttyName, int spi_mode, u_int32_t max_speed, int autoConnect );
 
   // These are the methods that we override from asynPortDriver
   virtual asynStatus flushOctet( asynUser *pasynUser );
@@ -25,7 +25,7 @@ class drvAsynSPI : public asynPortDriver {
   int   _fd;
   char* _deviceName;
   u_int8_t _spi_mode;
-  int   _max_speed;
+  u_int32_t _max_speed;
   asynInterface spi;
     
 };

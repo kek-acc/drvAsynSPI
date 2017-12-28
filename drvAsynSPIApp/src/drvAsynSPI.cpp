@@ -242,7 +242,7 @@ asynStatus drvAsynSPI::connect( asynUser *pasynUser ) {
     return asynError;
   }
 
-  int speed;
+  u_int32_t speed;
   if( ioctl( _fd, SPI_IOC_RD_MAX_SPEED_HZ, &speed ) >= 0 ){
     printf("speed = %d\n",speed);
   }
@@ -266,7 +266,7 @@ asynStatus drvAsynSPI::disconnect( asynUser *pasynUser ) {
 }
 
 
-drvAsynSPI::drvAsynSPI( const char *portName, const char *ttyName, int spi_mode, int max_speed, int autoConnect ) :
+drvAsynSPI::drvAsynSPI( const char *portName, const char *ttyName, int spi_mode, u_int32_t max_speed, int autoConnect ) :
   asynPortDriver( portName,
                   0, // maxAddr
                   0, // paramTableSize
