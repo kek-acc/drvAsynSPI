@@ -3,6 +3,7 @@
 #include <cstring>
 #include <cerrno>
 #include <fcntl.h>
+#include <stdint.h>
 #include <linux/spi/spidev.h>
 #include <sys/ioctl.h>
 #include <sys/types.h>
@@ -227,7 +228,7 @@ asynStatus drvAsynSPI::connect( asynUser *pasynUser ) {
     return asynError;
   }
 
-  int mode;
+  u_int8_t mode;
   if( ioctl( _fd, SPI_IOC_RD_MODE, &mode ) >= 0 ){
     printf("mode = %d\n",mode);
   }

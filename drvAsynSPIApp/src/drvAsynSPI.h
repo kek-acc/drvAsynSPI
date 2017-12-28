@@ -24,7 +24,7 @@ class drvAsynSPI : public asynPortDriver {
 
   int   _fd;
   char* _deviceName;
-  int   _spi_mode;
+  u_int8_t _spi_mode;
   int   _max_speed;
   asynInterface spi;
     
