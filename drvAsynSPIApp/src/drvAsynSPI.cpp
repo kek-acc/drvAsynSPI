@@ -230,10 +230,9 @@ asynStatus drvAsynSPI::connect( asynUser *pasynUser ) {
 
   u_int8_t mode;
   if( ioctl( _fd, SPI_IOC_RD_MODE, &mode ) >= 0 ){
-    printf("mode = %d\n",mode);
+    asynPrint( pasynUser, ASYN_TRACEIO_DRIVER, 
+               "%s: set %d to spi_mode of %s\n", portName, mode, _deviceName);
   }
-  asynPrint( pasynUser, ASYN_TRACEIO_DRIVER, 
-             "%s: set spi_mode %d of %s\n", portName, mode, _deviceName);
 
   // Seetings SPI speed
   if( ioctl( _fd, SPI_IOC_WR_MAX_SPEED_HZ, &_max_speed ) < 0 ) {
@@ -244,10 +243,9 @@ asynStatus drvAsynSPI::connect( asynUser *pasynUser ) {
 
   u_int32_t speed;
   if( ioctl( _fd, SPI_IOC_RD_MAX_SPEED_HZ, &speed ) >= 0 ){
-    printf("speed = %d\n",speed);
+    asynPrint( pasynUser, ASYN_TRACEIO_DRIVER, 
+               "%s: set %d to max_speed of %s\n", portName, speed, _deviceName);
   }
-  asynPrint( pasynUser, ASYN_TRACEIO_DRIVER, 
-             "%s: set max_speed %d of %s\n", portName, speed, _deviceName);
 
   pasynManager->exceptionConnect( pasynUser );
   return asynSuccess;
