@@ -35,7 +35,6 @@
 # If using the sequencer, point SNCSEQ at its top directory:
 #SNCSEQ = $(MODULES)/seq-ver
 ASYN=/opt/epics/R315.5/modules/soft/asyn/4-31
-STREAM=/opt/epics/R315.5/modules/soft/stream/2-7-7_SPI
 
 ## Using this driver in combination with streamDevice
 ## requires a workaround forbidding read queries with
