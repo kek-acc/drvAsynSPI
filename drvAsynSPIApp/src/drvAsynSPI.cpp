@@ -44,7 +44,7 @@ asynStatus drvAsynSPI::readOctet( asynUser *pasynUser, char *value, size_t maxCh
     // never reaching its break condition.
     //
     // This workaround simply returns asynTimeout on read requests with 256 byte length.
-    // Such long messages should not have any use case on I2C busses.
+    // Such long messages should not have any use case on SPI busses.
     if( maxChars == 256 ) return asynTimeout;
   #endif
 
