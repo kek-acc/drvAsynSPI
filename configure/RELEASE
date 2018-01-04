@@ -32,16 +32,7 @@
 ## workaround enabled, uncomment the following line
 #STREAM_WORKAROUND = 1
 
-# If using the sequencer, point SNCSEQ at its top directory:
-#SNCSEQ = $(MODULES)/seq-ver
 ASYN=/opt/epics/R315.5/modules/soft/asyn/4-31
-
-## Using this driver in combination with streamDevice
-## requires a workaround forbidding read queries with
-## a max length of 256 byte. To compile the driver with
-## with workaround enabled, uncomment the following line
-#STREAM_WORKAROUND=1
-
 
 # EPICS_BASE should appear last so earlier modules can override stuff:
 EPICS_BASE=/opt/epics/R315.5/base
