@@ -313,7 +313,7 @@ drvAsynSPI::drvAsynSPI( const char *portName, const char *ttyName, int spi_mode,
 
 // Configuration routines.  Called directly, or from the iocsh function below 
 extern "C" {
-  int drvAsynSPIConfigure( const char *portName, const char *ttyName, int spi_mode, int max_speed, int autoConnect = 1 ) {
+  int drvAsynSPIConfigure( const char *portName, const char *ttyName, int spi_mode = 0, int max_speed = 500000, int autoConnect = 1 ) {
     if( !portName ) {
       printf( "Port name missing.\n" );
       return -1;
