@@ -2,6 +2,10 @@
 
 This module provides EPICS device support for accessing SPI bus.
 
+drvAsynSPI is derived from drvAsynI2C, Copyright 2015 Florian Feldbauer.
+
+Original files of drvAsynI2C were obtained from [here](https://github.com/ffeldbauer/drvAsynI2C)
+
 ## Dependencies
 
    - EPICS base 3.14.12.5 (or newer)
